@@ -1,0 +1,5 @@
+# Links
+# https://www.digitalocean.com/community/tutorials/how-to-build-a-neural-network-to-translate-sign-language-into-english
+# https://www.geeksforgeeks.org/sign-language-recognition-system-using-tensorflow-in-python/#
+# https://data-flair.training/blogs/sign-language-recognition-python-ml-opencv/
+# https://medium.com/@m.rafaymct/sign-language-recognition-using-python-mediapipe-1de7638d2c1f
