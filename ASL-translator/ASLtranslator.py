@@ -1,24 +1,29 @@
 from tkinter import (PhotoImage, Frame, Label, Text, Entry, X, Y, BOTH, BOTTOM, TOP, LEFT, RIGHT, DISABLED, NORMAL, END, Tk)
 import os
 import random
-from asl import ASL
 from random import choice
+
+class ASL:
+
+    def __init__(self, name: str, image_filepath: str):
+        self.name = name
+        self.image = image_filepath
 
 class GAME(Frame):
     STATUS_RIGHT_ANSWER = "CORRECT!"
     STATUS_WRONG_ANSWER = "Try Again"
-    STATUS_DEFAULT = "Not a word."
+    STATUS_DEFAULT = "Too long."
     EXIT_GAME = ["quit"]
 
-    WIDTH = 800
-    HEIGHT = 600
+    WIDTH = 400
+    HEIGHT = 200
 
     def __init__(self, parent: Tk):
         Frame.__init__(self, parent)
         self.pack(fill=BOTH, expand=1)
     
     def setting_up_gui(self):
-        self.player_input = Entry(self)
+        self.player_input = Entry(self, bg="white", fg="black")
         self.player_input.bind("<Return>", self.process_input)
         self.player_input.pack(side=BOTTOM, fill=X)
         self.player_input.focus()
@@ -34,10 +39,10 @@ class GAME(Frame):
         text_container_width = GAME.WIDTH
         text_container = Frame(self, width=text_container_width)
 
-        self.text = Text(text_container, state=DISABLED)
+        self.text = Text(text_container, bg="white", fg="black", state=DISABLED)
         self.text.pack(fill=Y, expand=1)
 
-        text_container.pack(side=BOTTOM, fill=Y)
+        text_container.pack(side=RIGHT, fill=Y)
         text_container.pack_propagate(False)
 
     def setting_up_game(self):
@@ -71,7 +76,8 @@ class GAME(Frame):
 
         letters = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z]
 
-        self.current_pic = random.choice(letters)      
+        self.current_pic = random.choice(letters)
+
 
     def set_status(self, status):
         self.text.config(state=NORMAL)
@@ -97,8 +103,22 @@ class GAME(Frame):
         self.setting_up_game()
         self.set_images()
         self.set_status("")
+        self.player_input.bind("<Return>", self.process_input)
 
     def process_input(self, event):
+        user_answer = self.player_input.get().upper()
+
+        if user_answer == self.current_pic:
+            self.set_status(GAME.STATUS_RIGHT_ANSWER)
+            self.clear_entry()
+
+            self.setting_up_game()
+            self.set_images()
+            self.set_status("")
+
+        else:
+            self.set_status(GAME.STATUS_WRONG_ANSWER)
+
         action = self.player_input.get()
         action = action.lower()
 
@@ -110,8 +130,15 @@ class GAME(Frame):
         if len(words) != 1:
             self.handle_default()
             return 
-        
+            
         self.clear_entry()
+
+
+window = Tk()
+window.title("ASL learning game")
+game = GAME(window)
+game.play()
+window.mainloop()
 
 
 
