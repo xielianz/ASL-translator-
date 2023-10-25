@@ -42,36 +42,36 @@ class GAME(Frame):
 
     def setting_up_game(self):
 
-        a = ASL("A", os.path.join("ASL_images","a.gif"))
-        b = ASL("B", os.path.join("ASL_images","b.gif"))
-        c = ASL("C", os.path.join("ASL_images","c.gif"))
-        d = ASL("D", os.path.join("ASL_images","d.gif"))
-        e = ASL("E", os.path.join("ASL_images","e.gif"))
-        f = ASL("F", os.path.join("ASL_images","f.gif"))
-        g = ASL("G", os.path.join("ASL_images","g.gif"))
-        h = ASL("H", os.path.join("ASL_images","h.gif"))
-        i = ASL("I", os.path.join("ASL_images","i.gif"))
-        j = ASL("J", os.path.join("ASL_images","j.gif"))
-        k = ASL("K", os.path.join("ASL_images","k.gif"))
-        l = ASL("L", os.path.join("ASL_images","l.gif"))
-        m = ASL("M", os.path.join("ASL_images","m.gif"))
-        n = ASL("N", os.path.join("ASL_images","n.gif"))
-        o = ASL("O", os.path.join("ASL_images","o.gif"))
-        p = ASL("P", os.path.join("ASL_images","p.gif"))
-        q = ASL("Q", os.path.join("ASL_images","q.gif"))
-        r = ASL("R", os.path.join("ASL_images","r.gif"))
-        s = ASL("S", os.path.join("ASL_images","s.gif"))
-        t = ASL("T", os.path.join("ASL_images","t.gif"))
-        u = ASL("U", os.path.join("ASL_images","u.gif"))
-        v = ASL("V", os.path.join("ASL_images","v.gif"))
-        w = ASL("W", os.path.join("ASL_images","w.gif"))
-        x = ASL("X", os.path.join("ASL_images","x.gif"))
-        y = ASL("Y", os.path.join("ASL_images","y.gif"))
-        z = ASL("Z", os.path.join("ASL_images","z.gif"))
+        a = ASL("A", os.path.join("new_pics","a.png"))
+        b = ASL("B", os.path.join("new_pics","b.png"))
+        c = ASL("C", os.path.join("new_pics","c.png"))
+        d = ASL("D", os.path.join("new_pics","d.png"))
+        e = ASL("E", os.path.join("new_pics","e.png"))
+        f = ASL("F", os.path.join("new_pics","f.png"))
+        g = ASL("G", os.path.join("new_pics","g.png"))
+        h = ASL("H", os.path.join("new_pics","h.png"))
+        i = ASL("I", os.path.join("new_pics","i.png"))
+        j = ASL("J", os.path.join("new_pics","j.png"))
+        k = ASL("K", os.path.join("new_pics","k.png"))
+        l = ASL("L", os.path.join("new_pics","l.png"))
+        m = ASL("M", os.path.join("new_pics","m.png"))
+        n = ASL("N", os.path.join("new_pics","n.png"))
+        o = ASL("O", os.path.join("new_pics","o.png"))
+        p = ASL("P", os.path.join("new_pics","p.png"))
+        q = ASL("Q", os.path.join("new_pics","q.png"))
+        r = ASL("R", os.path.join("new_pics","r.png"))
+        s = ASL("S", os.path.join("new_pics","s.png"))
+        t = ASL("T", os.path.join("new_pics","t.png"))
+        u = ASL("U", os.path.join("new_pics","u.png"))
+        v = ASL("V", os.path.join("new_pics","v.png"))
+        w = ASL("W", os.path.join("new_pics","w.png"))
+        x = ASL("X", os.path.join("new_pics","x.png"))
+        y = ASL("Y", os.path.join("new_pics","y.png"))
+        z = ASL("Z", os.path.join("new_pics","z.png"))
 
         letters = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z]
 
-        self.current_pic = a
+        self.current_pic = random.choice(letters)      
 
     def set_status(self, status):
         self.text.config(state=NORMAL)
@@ -112,5 +112,6 @@ class GAME(Frame):
             return 
         
         self.clear_entry()
+
 
 
