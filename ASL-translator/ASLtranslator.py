@@ -36,10 +36,10 @@ class GAME(Frame):
         self.image_container.pack(side=TOP, fill=Y)
         self.image_container.pack_propagate(False)
 
-        text_container_width = GAME.WIDTH
+        text_container_width = GAME.WIDTH // 2
         text_container = Frame(self, width=text_container_width)
 
-        self.text = Text(text_container, bg="white", fg="black", state=DISABLED)
+        self.text = Text(text_container, bg="black", fg="white", state=DISABLED)
         self.text.pack(fill=Y, expand=1)
 
         text_container.pack(side=RIGHT, fill=Y)
@@ -79,7 +79,12 @@ class GAME(Frame):
         self.current_pic = random.choice(letters)
 
 
-    def set_status(self, status):
+    def set_status(self, status, text_widget):
+        text_widget.config(state=NORMAL)
+        text_widget.delete(1.0,END)
+        text_widget.insert(END,status)
+        text_widget.config(state=DISABLED)
+
         self.text.config(state=NORMAL)
         self.text.delete(1.0, END) 
 
@@ -95,29 +100,31 @@ class GAME(Frame):
         self.player_input.delete(0, END)
 
     def handle_default(self):
-        self.set_status(GAME.STATUS_DEFAULT)
+        self.set_status(GAME.STATUS_DEFAULT, self.text_widget)
         self.clear_entry()
 
     def play(self):
         self.setting_up_gui()
         self.setting_up_game()
         self.set_images()
-        self.set_status("")
+        self.text_widget = self.text
+        self.set_status("", self.text_widget)
+
         self.player_input.bind("<Return>", self.process_input)
 
     def process_input(self, event):
         user_answer = self.player_input.get().upper()
 
-        if user_answer == self.current_pic:
-            self.set_status(GAME.STATUS_RIGHT_ANSWER)
+        if user_answer == self.current_pic.name:
+            self.set_status(GAME.STATUS_RIGHT_ANSWER, self.text_widget)
             self.clear_entry()
 
             self.setting_up_game()
             self.set_images()
-            self.set_status("")
+            self.set_status("", self.text_widget)
 
         else:
-            self.set_status(GAME.STATUS_WRONG_ANSWER)
+            self.set_status(GAME.STATUS_WRONG_ANSWER, self.text_widget)
 
         action = self.player_input.get()
         action = action.lower()
@@ -129,9 +136,14 @@ class GAME(Frame):
 
         if len(words) != 1:
             self.handle_default()
-            return 
-            
+            return
+
         self.clear_entry()
+
+
+
+
+
 
 
 window = Tk()
