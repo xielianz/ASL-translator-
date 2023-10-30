@@ -86,7 +86,7 @@ def main_menu():
         TEST_BUTTON = Button(image=pygame.image.load("ASL-translator/assets/Testing Rect.png"), pos=(640,400),
                             text_input="TESTING", font=get_font(75), base_color="#d7fcd4",hovering_color="White")
         QUIT_BUTTON =  Button(image=pygame.image.load("ASL-translator/assets/Quit Rect.png"), pos=(640,550),
-                            text_input="QUIT", font=get_font(75), base_color="#d7fcd4",hovering_color="White")
+                            text_input="SIGN", font=get_font(75), base_color="#d7fcd4",hovering_color="White")
         
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
