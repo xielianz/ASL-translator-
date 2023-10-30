@@ -1,5 +1,7 @@
-import pygame, sys
+import pygame
+import sys
 import Button
+import os
 
 
 pygame.init()
@@ -11,6 +13,12 @@ BG = pygame.image.load("ASL-translator/assets/Background.png")
 
 def get_font(size):
     return pygame.font.Font("ASL-translator/assets/font.ttf",size)
+
+def play():
+	path_to_file = os.path.join('ASL-translator', 'Play.py')
+	os.system(f'python "{path_to_file}"')
+
+LEARN_BUTTON = None
 
 # Learn screen
 def learn(): 
@@ -38,6 +46,8 @@ def learn():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if LEARN_BACK.checkForInput(LEARN_MOUSE_POS):
                     main_menu()
+		if LEARN_BUTTON.checkForInput(LEARN_MOUSE_POS):
+			play()
 
         pygame.display.update()
 
