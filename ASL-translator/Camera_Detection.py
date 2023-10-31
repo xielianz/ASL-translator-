@@ -102,7 +102,7 @@ class SignLanguageConverter:
             dot_product = vector_unit[0] * reference_vector[0] + vector_unit[1] * reference_vector[1] + vector_unit[2] * reference_vector[2]
             angle = math.acos(dot_product) * 180 / math.pi  # angle in degrees
             if 20 < angle < 80:
-                CountGesture.set('Hey You!!')
+                CountGesture.set('Hello')
                 return "Point"
             else:
                 return None
