@@ -15,8 +15,8 @@ class GAME(Frame):
     STATUS_DEFAULT = "Too long."
     EXIT_GAME = ["quit"]
 
-    WIDTH = 600
-    HEIGHT = 400
+    WIDTH = 800
+    HEIGHT = 700
 
     def __init__(self, parent: Tk):
         Frame.__init__(self, parent)
