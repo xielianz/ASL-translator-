@@ -41,6 +41,7 @@ image_dict = {
     # Add more images for other letters as needed
 }
 
+
 # Crop and resize images to a specific size
 image_size = (300, 400)
 for letter, image in image_dict.items():
@@ -58,6 +59,7 @@ current_word = select_random_word()
 # Set up the font
 font = pygame.font.Font("ASL-translator/assets/font.ttf",36)
 large_font = pygame.font.Font("ASL-translator/assets/font.ttf", 68)
+small_font = pygame.font.Font("ASL-translator/assets/font.ttf", 33)
 
 # Track the user's input and highest streak
 user_input = ""
@@ -65,6 +67,7 @@ current_streak = 0
 highest_streak = 0
 wrong_message = ""
 wrong_message_time = 0
+hint_message = ""
 
 # Main loop
 running = True
@@ -83,18 +86,25 @@ while running:
             elif event.unicode.isalpha():
                 user_input += event.unicode.upper()
             elif event.key == K_RETURN:
-                if user_input == current_word:
+                if user_input.lower() == "hint":
+                    # shows hint for current word
+                    hint_message = f"The word starts with {current_word[0]}"
+                    wrong_message = ""
+                    wrong_message_time = pygame.time.get_ticks()
+                    user_input = "" # Reset user input after displaying the hint
+                elif user_input == current_word:
                     current_streak += 1
                     if current_streak > highest_streak:
                         highest_streak = current_streak
                     user_input = ""  # Reset user input on correct answer
+                    hint_message = "" # Reset hint message on correct answer
                     current_word = select_random_word()
                 else:
                     current_streak = 0
                     user_input = ""
                     wrong_message = "Wrong, Try Again"
                     wrong_message_time = pygame.time.get_ticks()
-                    
+                        
 
     screen.fill((255, 255, 255))
 
@@ -130,6 +140,12 @@ while running:
         screen.blit(wrong_message_text, (WIDTH // 2 - 550, HEIGHT // 2 + 30))
     else:
         wrong_message = ""  # Reset the wrong message if one second has passed
+    
+    # Display the hint message if available
+    if hint_message:
+        hint_text = small_font.render(hint_message, True, (255, 0, 0))
+        screen.blit(hint_text, (WIDTH // 2 - 550, HEIGHT // 2 + 30))
+   
 
 
     pygame.display.flip()
