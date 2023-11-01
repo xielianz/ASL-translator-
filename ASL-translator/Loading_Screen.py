@@ -1,6 +1,6 @@
-import pygame
-import sys
+import pygame, sys
 import Button
+from pygame.locals import *
 import os
 
 
@@ -15,7 +15,11 @@ def get_font(size):
     return pygame.font.Font("ASL-translator/assets/font.ttf",size)
 
 def play():
-	path_to_file = os.path.join('ASL-translator', 'Play.py')
+	path_to_file = os.path.join("ASL-translator", "Play.py")
+	os.system(f'python "{path_to_file}"')
+     
+def testing():
+	path_to_file = os.path.join("ASL-translator", "Testing.py")
 	os.system(f'python "{path_to_file}"')
 
 LEARN_BUTTON = None
@@ -46,8 +50,8 @@ def learn():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if LEARN_BACK.checkForInput(LEARN_MOUSE_POS):
                     main_menu()
-		if LEARN_BUTTON.checkForInput(LEARN_MOUSE_POS):
-			play()
+                if LEARN_BUTTON.checkForInput(LEARN_MOUSE_POS):
+                    play()
 
         pygame.display.update()
 
@@ -76,6 +80,8 @@ def test():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TEST_BACK.checkForInput(TEST_MOUSE_POS):
                     main_menu()
+                if TEST_BUTTON.checkForInput(TEST_MOUSE_POS):
+                    testing()
 
         pygame.display.update()
 
@@ -88,7 +94,7 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
+        MENU_TEXT = get_font(80).render("ASL-TRANSLATOR", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         LEARN_BUTTON = Button(image=pygame.image.load("ASL-translator/assets/Learn Rect.png"), pos=(640,250),
@@ -110,12 +116,11 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if LEARN_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    learn()
+                    play()
                 if TEST_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    test()
+                    testing()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pygame.quit()
-                    sys.exit()
+                    testing()    #PlAVE HOLDER< NOT ACTUALLY TESTING!!!
 
         pygame.display.update()
 class Button():

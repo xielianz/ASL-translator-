@@ -7,7 +7,7 @@ pygame.init()
 
 WIDTH, HEIGHT = 1280, 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Play Screen")
+pygame.display.set_caption("Learn Screen")
 
 play_screen = True  # We start on the Play screen
 
@@ -53,7 +53,7 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
+            if event.key == K_ESCAPE or event.key == K_q:  # Exit on 'q' key press:
                 pygame.quit()
                 sys.exit()
             elif event.unicode.isalpha():
