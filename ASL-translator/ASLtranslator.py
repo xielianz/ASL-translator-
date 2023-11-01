@@ -15,22 +15,24 @@ class GAME(Frame):
     STATUS_DEFAULT = "Too long."
     EXIT_GAME = ["quit"]
 
-    WIDTH = 400
-    HEIGHT = 200
+    WIDTH = 600
+    HEIGHT = 400
 
     def __init__(self, parent: Tk):
         Frame.__init__(self, parent)
         self.pack(fill=BOTH, expand=1)
+        self.font_size = 20
     
     def setting_up_gui(self):
-        self.player_input = Entry(self, bg="white", fg="black")
+        self.player_input = Entry(self, bg="black", fg="lightgreen", font=('Helvetica', self.font_size))
         self.player_input.bind("<Return>", self.process_input)
         self.player_input.pack(side=BOTTOM, fill=X)
         self.player_input.focus()
 
         img = None
         img_width = GAME.WIDTH
-        self.image_container = Label(self, width = img_width, image = img)
+        img_height = GAME.HEIGHT
+        self.image_container = Label(self, width = img_width, height = img_height, image = img, bg="black")
 
         self.image_container.image = img
         self.image_container.pack(side=TOP, fill=Y)
@@ -40,10 +42,14 @@ class GAME(Frame):
         text_container = Frame(self, width=text_container_width)
 
         self.text = Text(text_container, bg="black", fg="white", state=DISABLED)
-        self.text.pack(fill=Y, expand=1)
+        self.text.pack(fill=BOTH, expand=1)
 
         text_container.pack(side=RIGHT, fill=Y)
         text_container.pack_propagate(False)
+
+    def change_font_size(self, new_size):
+        self.font_size = new_size
+        self.player_input.config(font=('Comic Sans', self.font_size))
 
     def setting_up_game(self):
 
