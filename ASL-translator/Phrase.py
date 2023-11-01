@@ -20,9 +20,20 @@ image_word_pairs = {
     "no": pygame.image.load("ASL-translator/play_images/no.jpg"),
 }
 
+# Load images and corrensponding words with hints
+image_word_hint_pairs = {
+    "goodbye": {"image": pygame.image.load("ASL-translator/play_images/Goodbye.jpg"), "hint": "This word starts with the letter G"},
+    "hello": {"image": pygame.image.load("ASL-translator/play_images/Hello.jpg"), "hint": "This word starts with the letter H"},
+    "please": {"image": pygame.image.load("ASL-translator/play_images/please.jpg"), "hint": "This word starts with the letter P"},
+    "what": {"image": pygame.image.load("ASL-translator/play_images/what.jpg"), "hint": "This word starts with the letter W"},
+    "yes": {"image": pygame.image.load("ASL-translator/play_images/yes.jpg"), "hint": "This word starts with the letter Y"},
+    "no": {"image": pygame.image.load("ASL-translator/play_images/no.jpg"), "hint": "This word starts with the letter N"},
+}
+
 # Set up the font
 font = pygame.font.Font("ASL-translator/assets/font.ttf",36)
 large_font = pygame.font.Font("ASL-translator/assets/font.ttf", 68)
+small_font = pygame.font.Font("ASL-translator/assets/font.ttf", 33)
 
 # Select a random word from the list
 current_word, current_image = random.choice(list(image_word_pairs.items()))
@@ -33,6 +44,7 @@ current_streak = 0
 highest_streak = 0
 wrong_message = ""
 wrong_message_time = 0
+hint_message = ""
 
 # Main loop
 running = True
@@ -51,16 +63,22 @@ while running:
             elif event.unicode.isalpha():
                 user_input += event.unicode.upper()
             elif event.key == K_RETURN:
+                if user_input.lower() == "hint":
+                    # shows hint for current phrase
+                    hint_message = image_word_hint_pairs[current_word]["hint"]
+                    hint_message_request = f"Hint: {hint_message}"
+                    wrong_message_time = pygame.time.get_ticks()
+                    user_input = "" # Reset user input after displaying the hint
                 # Check if the user's input matches the current word
-                if user_input.lower() == current_word:
-                    current_streak += 1
-                    if current_streak > highest_streak:
-                        highest_streak = current_streak
-                    user_input = ""  # Reset user input on correct answer
-
-                    
-                    # Select a new random word and image
-                    current_word, current_image = random.choice(list(image_word_pairs.items()))
+                elif user_input.lower() == current_word:
+                        current_streak += 1
+                        if current_streak > highest_streak:
+                            highest_streak = current_streak
+                        user_input = ""  # Reset user input on correct answer
+                        hint_message = "" # Reset the hint message on correct answer
+                        current_word, current_image = random.choice(list(image_word_hint_pairs.items()))
+                        # Select a new random word and image
+                        current_word, current_image = random.choice(list(image_word_pairs.items()))
                 else:
                     current_streak = 0
                     user_input = ""
@@ -91,6 +109,13 @@ while running:
         screen.blit(wrong_message_text, (WIDTH // 2 - 550, HEIGHT // 2 + 30))
     else:
         wrong_message = ""  # Reset the wrong message if one second has passed
+
+    # Display the hint message if available
+    if hint_message:
+        hint_text = small_font.render(hint_message, True, (255, 0, 0))
+        screen.blit(hint_text, (WIDTH // 2 - 550, HEIGHT // 2 + 30))
+    else:
+        hint_message = ""
 
 
     pygame.display.flip()
