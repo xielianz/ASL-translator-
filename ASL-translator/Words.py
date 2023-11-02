@@ -2,9 +2,16 @@ import pygame
 import sys
 import random
 from pygame.locals import *
+import RPi.GPIO as GPIO
 
 # Initialize Pygame
 pygame.init()
+
+GPIO.setmode(GPIO.BCM)
+LED_PIN_RIGHT = 17
+LED_PIN_WRONG = 18
+GPIO.setup(LED_PIN_RIGHT, GPIO.OUT)
+GPIO.setup(LED_PIN_WRONG, GPIO.OUT)
 
 WIDTH, HEIGHT = 1280, 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -61,6 +68,9 @@ font = pygame.font.Font("ASL-translator/assets/font.ttf",36)
 large_font = pygame.font.Font("ASL-translator/assets/font.ttf", 68)
 small_font = pygame.font.Font("ASL-translator/assets/font.ttf", 33)
 
+GPIO.output(LED_PIN_RIGHT, GPIO.LOW)
+GPIO.output(LED_PIN_WRONG, GPIO.LOW)
+
 # Track the user's input and highest streak
 user_input = ""
 current_streak = 0
@@ -98,12 +108,18 @@ while running:
                         highest_streak = current_streak
                     user_input = ""  # Reset user input on correct answer
                     hint_message = "" # Reset hint message on correct answer
+                    GPIO.output(LED_PIN_RIGHT, GPIO.HIGH)
+                    pygame.time.delay(500)
+                    GPIO.output(LED_PIN_RIGHT, GPIO.LOW)
                     current_word = select_random_word()
                 else:
                     current_streak = 0
                     user_input = ""
                     wrong_message = "Wrong, Try Again"
                     wrong_message_time = pygame.time.get_ticks()
+                    GPIO.output(LED_PIN_WRONG, GPIO.HIGH)
+                    pygame.time.delay(500)
+                    GPIO.output(LED_PIN_WRONG, GPIO.LOW)
                         
 
     screen.fill((255, 255, 255))
@@ -150,5 +166,7 @@ while running:
 
     pygame.display.flip()
 
+
+GPIO.cleanup() 
 pygame.quit()
 sys.exit()

@@ -2,14 +2,20 @@ import pygame
 import sys
 import random
 from pygame.locals import *
+import RPi.GPIO as GPIO
 
 # Initialize Pygame
 pygame.init()
 
+GPIO.setmode(GPIO.BCM)
+LED_PIN_RIGHT = 17
+LED_PIN_WRONG = 18
+GPIO.setup(LED_PIN_RIGHT, GPIO.OUT)
+GPIO.setup(LED_PIN_WRONG, GPIO.OUT)
+
 WIDTH, HEIGHT = 1280, 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Baisc Phrase Testing")
-
 # Load images and corresponding words
 image_word_pairs = {
     "goodbye": pygame.image.load("ASL-translator/play_images/Goodbye.jpg"),
@@ -33,7 +39,10 @@ image_word_hint_pairs = {
 # Set up the font
 font = pygame.font.Font("ASL-translator/assets/font.ttf",36)
 large_font = pygame.font.Font("ASL-translator/assets/font.ttf", 68)
-small_font = pygame.font.Font("ASL-translator/assets/font.ttf", 33)
+small_font = pygame.font.Font("ASL-translator/assets/font.ttf", 33) 
+
+GPIO.output(LED_PIN_RIGHT, GPIO.LOW)
+GPIO.output(LED_PIN_WRONG, GPIO.LOW)
 
 # Select a random word from the list
 current_word, current_image = random.choice(list(image_word_pairs.items()))
@@ -76,6 +85,9 @@ while running:
                             highest_streak = current_streak
                         user_input = ""  # Reset user input on correct answer
                         hint_message = "" # Reset the hint message on correct answer
+                        GPIO.output(LED_PIN_RIGHT, GPIO.HIGH)
+                        pygame.time.delay(500)
+                        GPIO.output(LED_PIN_RIGHT, GPIO.LOW)
                         current_word, current_image = random.choice(list(image_word_hint_pairs.items()))
                         # Select a new random word and image
                         current_word, current_image = random.choice(list(image_word_pairs.items()))
@@ -84,6 +96,9 @@ while running:
                     user_input = ""
                     wrong_message = "Wrong, Try Again"
                     wrong_message_time = pygame.time.get_ticks()
+                    GPIO.output(LED_PIN_WRONG, GPIO.HIGH)
+                    pygame.time.delay(500)
+                    GPIO.output(LED_PIN_WRONG, GPIO.LOW)
 
     screen.fill((255, 255, 255))
 
@@ -119,6 +134,8 @@ while running:
 
 
     pygame.display.flip()
+
+GPIO.cleanup()    
 
 pygame.quit()
 sys.exit()

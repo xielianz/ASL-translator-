@@ -2,9 +2,16 @@ import pygame
 import sys
 import random
 from pygame.locals import *
+import RPi.GPIO as GPIO
 
 # Initialize Pygame
 pygame.init()
+
+GPIO.setmode(GPIO.BCM)
+LED_PIN_RIGHT = 17
+LED_PIN_WRONG = 18
+GPIO.setup(LED_PIN_RIGHT, GPIO.OUT)
+GPIO.setup(LED_PIN_WRONG, GPIO.OUT)
 
 WIDTH, HEIGHT = 1280, 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -44,6 +51,9 @@ image_dict = {
 font = pygame.font.Font("ASL-translator/assets/font.ttf", 36)
 large_font = pygame.font.Font("ASL-translator/assets/font.ttf", 68)
 
+GPIO.output(LED_PIN_RIGHT, GPIO.LOW)
+GPIO.output(LED_PIN_WRONG, GPIO.LOW)
+
 current_letter = random.choice(list(image_dict.keys()))
 
 # Track the user's input and highest streak
@@ -75,12 +85,18 @@ while running:
                     if current_streak > highest_streak:
                         highest_streak = current_streak
                     user_input = ""  # Reset user input on correct answer
+                    GPIO.output(LED_PIN_RIGHT, GPIO.HIGH)
+                    pygame.time.delay(500)
+                    GPIO.output(LED_PIN_RIGHT, GPIO.LOW)
                     current_letter = random.choice(list(image_dict.keys()))
                 else:
                     current_streak = 0
                     user_input = ""
                     wrong_message = "Wrong, Try Again"
                     wrong_message_time = pygame.time.get_ticks()
+                    GPIO.output(LED_PIN_WRONG, GPIO.HIGH)
+                    pygame.time.delay(500)
+                    GPIO.output(LED_PIN_WRONG, GPIO.LOW)
 
     screen.fill((255, 255, 255))
 
@@ -109,6 +125,8 @@ while running:
         wrong_message = ""  # Reset the wrong message if one second has passed
 
     pygame.display.flip()
+
+GPIO.cleanup() 
 
 pygame.quit()
 sys.exit()
