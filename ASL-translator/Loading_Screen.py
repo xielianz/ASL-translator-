@@ -16,11 +16,11 @@ def get_font(size):
 
 def play():
 	path_to_file = os.path.join("ASL-translator", "Play.py")
-	os.system(f'python "{path_to_file}"')
+	os.system('python "{}"'.format(path_to_file))
      
 def testing():
 	path_to_file = os.path.join("ASL-translator", "Testing.py")
-	os.system(f'python "{path_to_file}"')
+	os.system('python "{}"'.format(path_to_file))
 
 LEARN_BUTTON = None
 
@@ -33,12 +33,12 @@ def learn():
 
         SCREEN.fill("black")
 
-        LEARN_TEXT = get_font(45).render("ASL Translator", True, "White")
+        LEARN_TEXT = get_font(45).render("ASL Translator", True, (225,225,225))
         LEARN_RECT = LEARN_TEXT.get_rect(center=(640, 260))
         SCREEN.blit(LEARN_TEXT, LEARN_RECT)
 
         LEARN_BACK = Button(image=None, pos=(640, 460),
-                           text_input ="BACK", font=get_font(75), base_color="white", hovering_color="Green")
+                           text_input ="BACK", font=get_font(75), base_color=(225,225,225), hovering_color=(215,252,212))
         
         LEARN_BACK.changeColor(LEARN_MOUSE_POS)
         LEARN_BACK.update(SCREEN)
@@ -68,7 +68,7 @@ def test():
         SCREEN.blit(TEST_TEXT, TEST_RECT)
 
         TEST_BACK = Button(image=None, pos=(640, 460), 
-                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+                            text_input="BACK", font=get_font(75), base_color=(0,0,0), hovering_color=(215,252,212))
 
         TEST_BACK.changeColor(TEST_MOUSE_POS)
         TEST_BACK.update(SCREEN)
@@ -94,15 +94,15 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(80).render("ASL-TRANSLATOR", True, "#b68f40")
+        MENU_TEXT = get_font(80).render("ASL-TRANSLATOR", True, (182,143,64))
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         LEARN_BUTTON = Button(image=pygame.image.load("ASL-translator/assets/Learn Rect.png"), pos=(640,250),
-                            text_input="LEARN", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input="LEARN", font=get_font(75), base_color=(215,252,212), hovering_color=(225,225,225))
         TEST_BUTTON = Button(image=pygame.image.load("ASL-translator/assets/Testing Rect.png"), pos=(640,400),
-                            text_input="TESTING", font=get_font(75), base_color="#d7fcd4",hovering_color="White")
+                            text_input="TESTING", font=get_font(75), base_color=(215,252,212),hovering_color=(225,225,225))
         QUIT_BUTTON =  Button(image=pygame.image.load("ASL-translator/assets/Quit Rect.png"), pos=(640,550),
-                            text_input="SIGN", font=get_font(75), base_color="#d7fcd4",hovering_color="White")
+                            text_input="SIGN", font=get_font(75), base_color=(215,252,212),hovering_color=(225,225,225))
         
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 

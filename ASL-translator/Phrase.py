@@ -66,7 +66,7 @@ while running:
                 if user_input.lower() == "hint":
                     # shows hint for current phrase
                     hint_message = image_word_hint_pairs[current_word]["hint"]
-                    hint_message_request = f"Hint: {hint_message}"
+                    hint_message_request = "Hint: {}".format(hint_message)
                     wrong_message_time = pygame.time.get_ticks()
                     user_input = "" # Reset user input after displaying the hint
                 # Check if the user's input matches the current word

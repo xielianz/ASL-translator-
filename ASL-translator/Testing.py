@@ -16,15 +16,15 @@ def get_font(size):
 
 def words():
     path_to_file = os.path.join("ASL-translator", "Words.py")
-    os.system(f'python "{path_to_file}"')    
+    os.system('python "{}"'.format(path_to_file))    
 
 def alphabet():
     path_to_file = os.path.join("ASL-translator", "Alphabet.py")
-    os.system(f'python "{path_to_file}"') 
+    os.system('python "{}"'.format(path_to_file))
 
 def phrase():
     path_to_file = os.path.join("ASL-translator", "Phrase.py")
-    os.system(f'python "{path_to_file}"') 
+    os.system('python "{}"'.format(path_to_file))
 
 # Main menu screen
 def main_menu():
@@ -37,15 +37,15 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("TESTING", True, "#b68f40")
+        MENU_TEXT = get_font(100).render("TESTING", True, (182,143,64))
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         BASIC_PHRASE_BUTTON = Button(image=None, pos=(650, 575),
-                            text_input="BASIC PHRASES", font=get_font(75), base_color="white", hovering_color="Light Green")
+                            text_input="BASIC PHRASES", font=get_font(75), base_color=(225,225,225), hovering_color=(215,252,212))
         WORD_SEQUENCE_BUTTON = Button(image=None, pos=(650, 425),
-                            text_input="WORD SEQUENCE", font=get_font(75), base_color="white", hovering_color="Light Green")
-        ALPHABET_BUTTON = Button(image=None, pos=(650, 275),
-                            text_input="ALPHABET", font=get_font(75), base_color="white", hovering_color="Light Green")
+                            text_input="WORD SEQUENCE", font=get_font(75), base_color=(225,225,225), hovering_color=(215,252,212))
+        ALPHABET_BUTTON = Button(image=None, pos=(650, 275), 
+                            text_input="ALPHABET", font=get_font(75), base_color=(225,225,225), hovering_color=(215,252,212))
         
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 

@@ -88,7 +88,7 @@ while running:
             elif event.key == K_RETURN:
                 if user_input.lower() == "hint":
                     # shows hint for current word
-                    hint_message = f"The word starts with {current_word[0]}"
+                    hint_message = "The word starts with {}".format(current_word[0])
                     wrong_message = ""
                     wrong_message_time = pygame.time.get_ticks()
                     user_input = "" # Reset user input after displaying the hint

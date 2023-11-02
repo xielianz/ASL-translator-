@@ -53,7 +53,7 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE or event.key == K_q:  # Exit on 'q' key press:
+            if event.key == K_ESCAPE:  # Exit on 'q' key press:
                 pygame.quit()
                 sys.exit()
             elif event.unicode.isalpha():
